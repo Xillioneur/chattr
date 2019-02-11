@@ -2,6 +2,7 @@ $(document).ready(() => {
   const socket = io.connect();
 
   let currentUser;
+  socket.emit("get online users");
 
   $("#createUserBtn").click(e => {
     e.preventDefault();
@@ -40,5 +41,11 @@ $(document).ready(() => {
         <p class="messageText">${data.message}</p>
       </div>
     `);
+  });
+
+  socket.on("get online users", onlineUsers => {
+    for (username in onlineUsers) {
+      $(".usersOnline").append(`<p class="userOnline">${username}</p>`);
+    }
   });
 });
