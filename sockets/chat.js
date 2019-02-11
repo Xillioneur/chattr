@@ -14,4 +14,10 @@ module.exports = (io, socket, onlineUsers) => {
   socket.on("get online users", () => {
     socket.emit("get online users", onlineUsers);
   });
+
+  socket.on("disconnect", () => {
+    //This deletes the user by using the username we saved to the socket
+    delete onlineUsers[socket.username];
+    io.emit("user has left", onlineUsers);
+  });
 };
