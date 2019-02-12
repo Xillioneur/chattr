@@ -3,6 +3,7 @@ $(document).ready(() => {
 
   let currentUser;
   socket.emit("get online users");
+  socket.emit("user changed channel", "General");
 
   $("#createUserBtn").click(e => {
     e.preventDefault();
@@ -37,6 +38,11 @@ $(document).ready(() => {
       socket.emit("new channel", newChannel);
       $("#newChannelInput").val("");
     }
+  });
+
+  $(document).on("click", ".channel", e => {
+    let newChannel = e.target.textContent;
+    socket.emit("user changed channel", newChannel);
   });
 
   socket.on("new user", username => {
