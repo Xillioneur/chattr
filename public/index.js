@@ -28,6 +28,15 @@ $(document).ready(() => {
     }
   });
 
+  $("#newChannelBtn").click(() => {
+    let newChannel = $("#newChannelInput").val();
+
+    if (newChannel.length > 0) {
+      socket.emit("new channel", newChannel);
+      $("#newChannelInput").val("");
+    }
+  });
+
   socket.on("new user", username => {
     console.log(`${username} has joined the chat`);
     // Add the new user to the online users div
